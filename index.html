@@ -17,16 +17,24 @@
         .nav-link:hover { background-color: #dbeafe; color: #1e40af; }
         .nav-link.active:hover { background-color: #1d4ed8; }
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
         .source-citation { font-size: 0.8rem; color: #6b7280; text-align: right; margin-top: 1rem; }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <div class="flex h-screen bg-white">
+    <div class="relative min-h-screen md:flex">
         
-        <aside id="sidebar" class="w-64 bg-gray-50 p-4 flex-shrink-0 transition-transform -translate-x-full sm:translate-x-0 border-e">
-            <div class="flex items-center mb-6">
+        <!-- Mobile menu button -->
+        <div class="absolute top-4 right-4 z-20 md:hidden">
+             <button id="menu-toggle" class="p-2 bg-white rounded-md border">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+        </div>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-gray-50 text-gray-800 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-10 border-r">
+            <div class="flex items-center mb-6 px-2">
                 <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
                     <span class="text-white text-2xl font-bold">!</span>
                 </div>
@@ -46,13 +54,9 @@
         </aside>
 
         
-        <main class="flex-1 overflow-y-auto p-4 sm:p-8 bg-gray-100 relative">
-             <button id="menu-toggle" class="sm:hidden p-2 mb-4 bg-white rounded-md border">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-            </button>
-            
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
             <section id="dashboard" class="content-section">
-                <h2 class="text-3xl font-bold mb-2 text-gray-800">Ana Kontrol Paneli</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">Ana Kontrol Paneli</h2>
                 <p class="mb-6 text-gray-500">Mevcut duruma ve gereken acil eylemlere hızlı bir genel bakış.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -75,15 +79,15 @@
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <button onclick="navigateTo('procedures', 'alpha')" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold p-4 rounded-lg text-center transition">
                                 <span class="text-3xl">☢️</span>
-                                <span class="block mt-2">Prosedür Alfa: Yerinde Sığınak</span>
+                                <span class="block mt-2 text-sm sm:text-base">Prosedür Alfa: Yerinde Sığınak</span>
                             </button>
                             <button onclick="navigateTo('procedures', 'bravo')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-lg text-center transition">
                                 <span class="text-3xl">🚗</span>
-                                <span class="block mt-2">Prosedür Bravo: Tahliye</span>
+                                <span class="block mt-2 text-sm sm:text-base">Prosedür Bravo: Tahliye</span>
                             </button>
                             <button onclick="navigateTo('procedures', 'charlie')" class="bg-red-500 hover:bg-red-600 text-white font-bold p-4 rounded-lg text-center transition">
                                 <span class="text-3xl">🚨</span>
-                                <span class="block mt-2">Prosedür Charlie: Terör Olayı</span>
+                                <span class="block mt-2 text-sm sm:text-base">Prosedür Charlie: Terör Olayı</span>
                             </button>
                         </div>
                     </div>
@@ -96,7 +100,7 @@
 
             
             <section id="threats" class="content-section">
-                <h2 class="text-3xl font-bold mb-2 text-gray-800">Radyolojik Tehditler ve Uyarı Sistemleri</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">Radyolojik Tehditler ve Uyarı Sistemleri</h2>
                 <p class="mb-6 text-gray-500">Potansiyel radyolojik riskleri ve resmi uyarıları nasıl alacağınızı anlayın.</p>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
@@ -115,8 +119,10 @@
                         </div>
                          <div class="mt-4 text-center">
                             <p class="text-sm mb-2">Rüzgar Yönünü Simüle Edin:</p>
-                            <button id="shamal-wind-btn" class="px-4 py-2 bg-gray-200 rounded-md">Şimal Rüzgarı (Hakim)</button>
-                            <button id="kaus-wind-btn" class="px-4 py-2 bg-red-200 rounded-md">Kaus Rüzgarı (Tehdit)</button>
+                            <div class="flex flex-col sm:flex-row justify-center gap-2">
+                                <button id="shamal-wind-btn" class="px-4 py-2 bg-gray-200 rounded-md">Şimal Rüzgarı (Hakim)</button>
+                                <button id="kaus-wind-btn" class="px-4 py-2 bg-red-200 rounded-md">Kaus Rüzgarı (Tehdit)</button>
+                            </div>
                         </div>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
@@ -129,7 +135,7 @@
             </section>
             
             <section id="chemical" class="content-section">
-                <h2 class="text-3xl font-bold mb-2 text-gray-800">Kimyasal Silah Tehditleri</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">Kimyasal Silah Tehditleri</h2>
                 <p class="mb-6 text-gray-500">Sivil Savunma talimatlarına dayalı olarak kimyasal maddelere maruz kalma durumunda prosedürler ve ilk yardım.</p>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-6">
                     <h3 class="font-bold text-lg mb-4">Kimyasal Saldırılara Karşı Koruyucu Önlemler</h3>
@@ -151,7 +157,7 @@
             </section>
 
             <section id="preparedness" class="content-section">
-                <h2 class="text-3xl font-bold mb-2 text-gray-800">Kişisel ve Ailevi Hazırlık</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">Kişisel ve Ailevi Hazırlık</h2>
                 <p class="mb-6 text-gray-500">Önceden hazırlık, güvenliğin anahtarıdır. Ailenizi hazırlamak için bu araçları kullanın.</p>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
@@ -185,7 +191,7 @@
             </section>
             
             <section id="shelter" class="content-section">
-                <h2 class="text-3xl font-bold mb-2 text-gray-800">Sığınak ve Korunma</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">Sığınak ve Korunma</h2>
                 <p class="mb-6 text-gray-500">Güvenli bir sığınak oluşturma ve radyasyondan korunmayı anlama konusunda ayrıntılı rehberlik.</p>
                 
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-6">
@@ -222,14 +228,14 @@
             </section>
             
             <section id="procedures" class="content-section">
-                <h2 class="text-3xl font-bold mb-2 text-gray-800">Standart Operasyon Prosedürleri (SOP)</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">Standart Operasyon Prosedürleri (SOP)</h2>
                 <p class="mb-6 text-gray-500">Belirli acil durum senaryoları için net, adım adım talimatlar.</p>
                 <div id="procedures-accordion" class="space-y-4"></div>
             </section>
 
             
             <section id="medical" class="content-section">
-                <h2 class="text-3xl font-bold mb-2 text-gray-800">Tıbbi Müdahale ve Dekontaminasyon</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">Tıbbi Müdahale ve Dekontaminasyon</h2>
                 <p class="mb-6 text-gray-500">Sağlık risklerini ve maruziyeti azaltmak için olay sonrası hayati eylemler.</p>
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
                     <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
